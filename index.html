@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/mist.svg">
     <title>Ops Access</title>
     <link
       href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
@@ -32,7 +32,7 @@
             width="100%"
           >
             <template v-slot:prepend>
-              <img width="24" height="24" src="/favicon.svg" >
+              <img width="24" height="24" src="/mist.svg" >
             </template>
 
             <template v-slot:title>
@@ -108,8 +108,28 @@
               
             </v-card-text>
             <v-card-text>
-              <v-btn variant="tonal" :href="`https://${mistEnvironments[selectedEnvironment].url}/admin/?org_id=${org}`" target="_blank">
-                Go To Org Admin
+              <v-btn 
+                variant="tonal"
+                href="slack://channel?team=T02MS68PQ&id=C3V77L7JA"
+                prepend-icon="mdi-slack"
+                rounded="xl"
+                class="text-none"
+              >
+                Open Slack
+              </v-btn>
+            </v-card-text>
+            <v-card-text>
+              <v-btn 
+                variant="tonal"
+                :href="`https://${mistEnvironments[selectedEnvironment].url}/admin/?org_id=${org}`" 
+                target="_blank"
+                rounded="xl"
+                class="text-none"
+              >
+                <template v-slot:prepend>
+                  <img width="16" height="16" src="/mist-greyscale.svg" >
+                </template>
+                Open Org
               </v-btn> 
             </v-card-text>
           </v-card>
