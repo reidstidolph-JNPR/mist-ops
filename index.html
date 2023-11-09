@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ops Access</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@3.3.23/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.3.23/dist/vuetify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+  </body>
+
+  <!--
+    Template
+  -->
+  <script type="text/x-template" id="app-template">
+    <v-app>
+      <v-container>
+        <v-row class="d-flex mt-3 mb-3">
+          <v-card
+            append-icon="mdi-human-greeting"
+            width="100%"
+          >
+            <template v-slot:title>
+              Ops Access
+            </template>
+            <v-card-text>
+
+              <v-text-field
+                v-model="org"
+                label="Org ID"
+              ></v-text-field>
+
+              <v-select
+                label="Environment"
+                :items=environments
+                v-model="selectedEnvironment"
+              ></v-select>
+
+              <v-slider
+                v-model="days"
+                class="align-center"
+                :max="daysMax"
+                :min="daysMin"
+                :step="1"
+                label="Days"
+                hide-details
+              >
+                <template v-slot:append>
+                  <v-text-field
+                    v-model="days"
+                    hide-details
+                    single-line
+                    density="compact"
+                    type="number"
+                    style="width: 70px"
+                  ></v-text-field>
+                  </template>
+                </v-slider>
+
+
+            </v-card-text>
+          </v-card>
+        </v-row>
+
+        <v-row class="d-flex mt-3 mb-3">
+          <v-card
+            width="100%"
+          >
+            <v-card-text>
+              <v-card color="black">
+                <v-card-text>
+                  <code>
+                    <span id="slackText">request_ops_access org={{org}} duration={{days}} env={{mistEnvironments[selectedEnvironment].shortName}}</span>
+                  </code>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn 
+                    class="clipboard"
+                    variant="tonal"
+                    density="comfortable" 
+                    icon="mdi-content-copy"
+                    data-clipboard-target="#slackText"
+                  >
+                    <v-icon>mdi-content-copy</v-icon>
+
+                    <v-snackbar location="bottom center" v-model="copied" color="green-darken-2">
+                      <span>Copied! <v-icon>mdi-check-circle</v-icon></span>
+                    </v-snackbar>
+
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+              
+            </v-card-text>
+            <v-card-text>
+              <v-btn variant="tonal" :href="`https://${mistEnvironments[selectedEnvironment].url}/admin/?org_id=${org}`" target="_blank">
+                Go To Org Admin
+              </v-btn> 
+            </v-card-text>
+          </v-card>
+        </v-row>
+      </v-container>
+    </v-app>
+  </script>
+
+  <!--
+    Main Vue script
+  -->
+  <script>
+    // clipboard
+    const clipboard = new ClipboardJS('.clipboard')
+
+    const { createApp, ref } = Vue
+    const { createVuetify } = Vuetify
+    const vuetify = createVuetify()
+
+    const mistEnvironments = {
+      'Global01': {
+        'shortName': 'production',
+        'url': 'manage.mist.com'
+      },
+      'Global02': {
+        'shortName': 'gc1',
+        'url': 'manage.gc1.mist.com'
+      },
+      'Global03': {
+        'shortName': 'ac2',
+        'url': 'manage.ac2.mist.com'
+      },
+      'Global04': {
+        'shortName': 'gc2',
+        'url': 'manage.gc2.mist.com'
+      },
+      'Emea01': {
+        'shortName': 'eu',
+        'url': 'manage.eu.mist.com'
+      },
+    }
+    
+    const app = createApp({
+      template: "#app-template",
+      setup() {
+        const environments = ref(['Global01', 'Global02', 'Global03', 'Global04', 'Emea01'])
+        const org = ref('')
+        const selectedEnvironment=ref('Global01')
+        const days = ref(1)
+        const daysMax = ref(15)
+        const daysMin = ref(1)
+        var copied = ref(false)
+
+        clipboard.on('success', function(e) {
+          console.log('text copied!')
+          copied.value = true
+          setTimeout(()=>{copied.value = false},5000)
+        })
+
+        return {environments, mistEnvironments, selectedEnvironment, copied, org, days, daysMax, daysMin}
+      }
+    })
+      .use(vuetify)
+      .mount("#app")
+  </script>
+
+</html>
