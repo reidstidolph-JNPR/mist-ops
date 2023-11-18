@@ -133,6 +133,19 @@
                 Open Org
               </v-btn>
 
+              &nbsp&nbsp
+
+              <v-btn 
+                variant="tonal"
+                :href="`https://${mistEnvironments[selectedEnvironment].api}/api/v1/super/orgs/${org}/admins`" 
+                target="_blank"
+                prepend-icon="mdi-account"
+                rounded="xl"
+                class="text-none"
+              >
+                Get Admins
+              </v-btn>
+
             </v-card-text>
 
           </v-card>
@@ -155,23 +168,28 @@
     const mistEnvironments = {
       'Global01': {
         'shortName': 'production',
-        'url': 'manage.mist.com'
+        'url': 'manage.mist.com',
+        'api': 'api.mist.com'
       },
       'Global02': {
         'shortName': 'gc1',
-        'url': 'manage.gc1.mist.com'
+        'url': 'manage.gc1.mist.com',
+        'api': 'api.gc1.mist.com'
       },
       'Global03': {
         'shortName': 'ac2',
-        'url': 'manage.ac2.mist.com'
+        'url': 'manage.ac2.mist.com',
+        'api': 'api.ac2.mist.com'
       },
       'Global04': {
         'shortName': 'gc2',
-        'url': 'manage.gc2.mist.com'
+        'url': 'manage.gc2.mist.com',
+        'api': 'api.gc2.mist.com'
       },
       'Emea01': {
         'shortName': 'eu',
-        'url': 'manage.eu.mist.com'
+        'url': 'manage.eu.mist.com',
+        'api': 'api.eu.mist.com'
       },
     }
     
