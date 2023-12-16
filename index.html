@@ -88,63 +88,108 @@
                     <span id="slackText">request_ops_access org={{org}} duration={{days}} env={{mistEnvironments[selectedEnvironment].shortName}}</span>
                   </code>
                 </v-card-text>
-                <v-card-actions>
-                  <v-btn 
-                    class="clipboard"
-                    variant="tonal"
-                    density="comfortable" 
-                    icon="mdi-content-copy"
-                    data-clipboard-target="#slackText"
-                  >
-                    <v-icon>mdi-content-copy</v-icon>
-
-                    <v-snackbar location="bottom center" v-model="copied" color="green-darken-2">
-                      <span>Copied! <v-icon>mdi-check-circle</v-icon></span>
-                    </v-snackbar>
-
-                  </v-btn>
-                </v-card-actions>
               </v-card>
               
             </v-card-text>
             <v-card-text>
-              <v-btn 
-                variant="tonal"
-                href="slack://channel?team=T02MS68PQ&id=C3V77L7JA"
-                prepend-icon="mdi-slack"
-                rounded="xl"
-                class="text-none"
-              >
-                Open Slack
-              </v-btn>
 
-              &nbsp&nbsp
-
-              <v-btn 
-                variant="tonal"
-                :href="`https://${mistEnvironments[selectedEnvironment].url}/admin/?org_id=${org}`" 
-                target="_blank"
-                rounded="xl"
-                class="text-none"
+              <v-timeline
+                side="end"
+                density="compact"
               >
-                <template v-slot:prepend>
-                  <img width="16" height="16" src="/mist-greyscale.svg" >
+                <v-timeline-item
+                  fill-dot
+                  class="mb-12"
+                  dot-color="#E87200"
+                  size="large"
+                >
+                <template v-slot:icon>
+                  <span>1</span>
                 </template>
-                Open Org
-              </v-btn>
 
-              &nbsp&nbsp
+                  <v-container>
+                    <v-row>
+                      <v-col>
+                        <v-btn 
+                          variant="tonal"
+                          prepend-icon="mdi-content-copy"
+                          class="text-none clipboard"
+                          data-clipboard-target="#slackText"
+                        >
+                          Copy Ops Request
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-timeline-item>
 
-              <v-btn 
-                variant="tonal"
-                :href="`https://${mistEnvironments[selectedEnvironment].api}/api/v1/super/orgs/${org}/admins`" 
-                target="_blank"
-                prepend-icon="mdi-account"
-                rounded="xl"
-                class="text-none"
-              >
-                Get Admins
-              </v-btn>
+                <v-timeline-item
+                  fill-dot
+                  class="mb-12"
+                  dot-color="#84B135"
+                  size="large"
+                >
+                  <template v-slot:icon>
+                    <span>2</span>
+                  </template>
+
+                  <v-container>
+                    <v-row>
+                      <v-col>
+                        <v-btn 
+                          variant="tonal"
+                          href="slack://channel?team=T02MS68PQ&id=C3V77L7JA"
+                          prepend-icon="mdi-slack"
+                          class="text-none"
+                        >
+                          Open Slack
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-timeline-item>
+
+                <v-timeline-item
+                  fill-dot
+                  class="mb-12"
+                  dot-color="#0095A9"
+                  size="large"
+                >
+                  <template v-slot:icon>
+                    <span>3</span>
+                  </template>
+                  <v-container>
+                    <v-row>
+                      <v-col>
+                        <v-btn 
+                          variant="tonal"
+                          :href="`https://${mistEnvironments[selectedEnvironment].url}/admin/?org_id=${org}`" 
+                          target="_blank"
+                          class="text-none"
+                        >
+                          <template v-slot:prepend>
+                            <img width="16" height="16" src="/mist-greyscale.svg" >
+                          </template>
+                          Open Org
+                        </v-btn>
+                      </v-col>
+
+                      <v-col>
+                        <v-btn 
+                          variant="tonal"
+                          :href="`https://${mistEnvironments[selectedEnvironment].api}/api/v1/super/orgs/${org}/admins`" 
+                          target="_blank"
+                          prepend-icon="mdi-account"
+                          class="text-none"
+                        >
+                          Get Admins
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-timeline-item>
+
+              </v-timeline>
 
             </v-card-text>
 
