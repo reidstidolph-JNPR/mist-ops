@@ -311,12 +311,32 @@
         'url': 'manage.eu.mist.com',
         'api': 'api.eu.mist.com'
       },
+      'Emea02': {
+        'shortName': 'gc3',
+        'url': 'manage.gc3.mist.com',
+        'api': 'api.gc3.mist.com'
+      },
+      'Emea03': {
+        'shortName': 'ac6',
+        'url': 'manage.ac6.mist.com',
+        'api': 'api.ac6.mist.com'
+      },
+      'Apac01': {
+        'shortName': 'ac5',
+        'url': 'manage.ac5.mist.com',
+        'api': 'api.ac5.mist.com'
+      },
+      'Global99': {
+        'shortName': 'ac99',
+        'url': 'manage.ac99.mist.com',
+        'api': 'api.ac99.mist.com'
+      },
     }
     
     const app = createApp({
       template: "#app-template",
       setup() {
-        const environments = ref(['Global01', 'Global02', 'Global03', 'Global04', 'Emea01'])
+        const environments = ref(['Global01', 'Global02', 'Global03', 'Global04', 'Emea01', 'Emea02', 'Emea03', 'Apac01', 'Global99'])
         const org = ref('')
         const selectedEnvironment=ref('Global01')
         const days = ref(1)
